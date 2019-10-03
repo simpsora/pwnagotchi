@@ -97,12 +97,12 @@ ui:
         enabled: true
         rotation: 180
         # Possible options inkyphat/inky, papirus/papi, waveshare_1/ws_1 or waveshare_2/ws_2
-        type: 'waveshare_2'
+        type: 'waveshare_1'
         # Possible options red/yellow/black (black used for monocromatic displays)
         color: 'black'
         video:
             enabled: true
-            address: '10.0.0.2'
+            address: '10.4.0.2'
             port: 8080
 
 # twitter bot data

@@ -10,9 +10,9 @@ zombie kr
 activity        "activity in %n (%t)"
 bell_msg        "bell in %n (%t)"
 
-vbell           on
-vbell_msg       "WTF DUDE ??!!"
-vbellwait       1
+vbell           off
+vbell_msg       ""
+#vbellwait       1
 
 # set terminal emulator to xterm mode
 term xterm
