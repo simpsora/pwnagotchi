@@ -33,8 +33,8 @@ main:
     no_restart: false
     # access points to ignore
     whitelist:
-        - EXAMPLE_NETWORK
-        - ANOTHER_EXAMPLE_NETWORK
+        - 'LARR'
+        - 'ServiceNet'
     # if not null, filter access points by this regular expression
     filter: null
     # cryptographic key for identity
