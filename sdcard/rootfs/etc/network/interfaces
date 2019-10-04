@@ -15,3 +15,4 @@ iface usb0 inet static
         network 10.4.0.0
         broadcast 10.4.0.255
         gateway 10.4.0.1
+        dns-nameservers 10.0.0.1
