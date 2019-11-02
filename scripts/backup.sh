@@ -17,6 +17,14 @@ FILES_TO_BACKUP=(
   /etc/pwnagotchi/
   /var/log/pwnagotchi.log
   /home/pi/.bashrc
+  /etc/network/interfaces.d/usb0-cfg
+  /etc/localtime
+  /etc/timezone
+  /etc/pwnagotchi/config.yml
+  /etc/pwnagotchi/fingerprint
+  /etc/pwnagotchi/id_rsa
+  /etc/pwnagotchi/id_rsa.pub
+  /etc/vim/vimrc.local
 )
 
 ping -c 1 "${UNIT_HOSTNAME}" >/dev/null || {
