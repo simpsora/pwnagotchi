@@ -49,11 +49,14 @@ INDEX = """<html>
   </head>
   <body>
     <div style="position: absolute; top:0; left:0; width:100%%;">
-        <img src="/ui" id="ui" style="width:100%%"/>
+        <img src="/ui" id="ui" style="width:100%%;image-rendering: pixelated;"/>
         <br/>
         <hr/>
-        <form method="POST" action="/shutdown" onsubmit="return confirm('This will halt the unit, continue?');">
-            <input type="submit" class="block" value="Shutdown"/>
+        <form style="display:inline;" method="POST" action="/shutdown" onsubmit="return confirm('This will halt the unit, continue?');">
+            <input style="display:inline;" type="submit" class="block" value="Shutdown"/>
+        </form>
+        <form style="display:inline;" method="POST" action="/reboot_into_auto" onsubmit="return confirm('This will reboot the unit into AUTO mode, continue?');">
+            <input style="display:inline;" type="submit" class="block" value="Reboot into AUTO mode"/>
         </form>
     </div>
 
@@ -61,14 +64,14 @@ INDEX = """<html>
   </body>
 </html>"""
 
-SHUTDOWN = """<html>
+STATUS_PAGE = """<html>
   <head>
       <title>%s</title>
       <style>""" + STYLE + """</style>
   </head>
   <body>
     <div style="position: absolute; top:0; left:0; width:100%%;">
-        Shutting down ...
+        %s
     </div>
   </body>
 </html>"""
@@ -93,7 +96,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Credentials', 'true')
             self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
             self.send_header("Access-Control-Allow-Headers",
-                            "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+                             "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
             self.send_header("Vary", "Origin")
 
     # just render some html in a 200 response
@@ -113,8 +116,13 @@ class Handler(BaseHTTPRequestHandler):
 
     # serve a message and shuts down the unit
     def _shutdown(self):
-        self._html(SHUTDOWN % pwnagotchi.name())
+        self._html(STATUS_PAGE % (pwnagotchi.name(), 'Shutting down ...'))
         pwnagotchi.shutdown()
+
+    # serve a message and reboot the unit into auto mode
+    def _reboot(self):
+        self._html(STATUS_PAGE % (pwnagotchi.name(), 'Rebooting into AUTO mode ...'))
+        pwnagotchi.reboot(mode='AUTO')
 
     # serve the PNG file with the display image
     def _image(self):
