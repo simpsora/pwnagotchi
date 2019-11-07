@@ -19,25 +19,10 @@ main:
             report: false # don't report pwned networks by default!
             exclude: # do not report the following networks (accepts both ESSIDs and BSSIDs)
                 - YourHomeNetworkHere
-
         auto-update:
             enabled: true
             install: true # if false, it will only warn that updates are available, if true it will install them
             interval: 1 # every 1 hour
-
-        auto-backup:
-            enabled: false
-            interval: 1 # every day
-            files:
-                - /root/brain.nn
-                - /root/brain.json
-                - /root/.api-report.json
-                - /root/handshakes/
-                - /root/peers/
-                - /etc/pwnagotchi/
-                - /var/log/pwnagotchi.log
-            commands:
-                - 'tar czf /root/pwnagotchi-backup.tar.gz {files}'
         net-pos:
             enabled: false
             api_key: 'test'
@@ -45,12 +30,6 @@ main:
             enabled: false
             speed: 19200
             device: /dev/ttyUSB0
-        twitter:
-            enabled: false
-            consumer_key: aaa
-            consumer_secret: aaa
-            access_token_key: aaa
-            access_token_secret: aaa
         onlinehashcrack:
             enabled: false
             email: ~
@@ -61,14 +40,6 @@ main:
         wigle:
             enabled: false
             api_key: ~
-        screen_refresh:
-            enabled: false
-            refresh_interval: 50
-        quickdic:
-            enabled: false
-            wordlist_folder: /opt/wordlists/
-        AircrackOnly:
-            enabled: false
         bt-tether:
             enabled: false # if you want to use this, set ui.display.video.address to 0.0.0.0
             devices:
@@ -105,8 +76,8 @@ main:
             enabled: false
             #The following is a list of the GPIO number for your button, and the command you want to run when it is pressed
             gpios:
-            - 20: 'sudo touch /root/.pwnagotchi-auto && sudo systemctl restart pwnagotchi'
-            - 21: 'shutdown -h now'
+              20: 'touch /root/.pwnagotchi-auto && systemctl restart pwnagotchi'
+              21: 'shutdown -h now'
     # monitor interface to use
     iface: mon0
     # command to run to bring the mon interface up in case it's not up already
@@ -229,7 +200,7 @@ ui:
     display:
         enabled: true
         rotation: 180
-        # Possible options inkyphat/inky, papirus/papi, waveshare_1/ws_1 or waveshare_2/ws_2, oledhat, lcdhat, waveshare154inch, waveshare27inch, dfrobot/df
+        # Possible options inkyphat/inky, papirus/papi, waveshare_1/ws_1 or waveshare_2/ws_2, oledhat, lcdhat, waveshare154inch, waveshare27inch, waveshare29inch, dfrobot/df
         type: 'waveshare_2'
         # Possible options red/yellow/black (black used for monocromatic displays)
         # Waveshare tri-color 2.13in display can be over-driven with color set as 'fastAndFurious'

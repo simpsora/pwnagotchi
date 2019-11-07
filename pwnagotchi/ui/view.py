@@ -5,10 +5,12 @@ import logging
 import random
 from PIL import ImageDraw
 
+import pwnagotchi
 import pwnagotchi.utils as utils
 import pwnagotchi.plugins as plugins
 from pwnagotchi.voice import Voice
 
+import pwnagotchi.ui.web as web
 import pwnagotchi.ui.fonts as fonts
 import pwnagotchi.ui.faces as faces
 from pwnagotchi.ui.components import *
@@ -132,7 +134,7 @@ class View(object):
         return self._state.get(key)
 
     def on_starting(self):
-        self.set('status', self._voice.on_starting())
+        self.set('status', self._voice.on_starting() + ("\n(v%s)" % pwnagotchi.version))
         self.set('face', faces.AWAKE)
 
     def on_ai_ready(self):
@@ -367,6 +369,8 @@ class View(object):
 
                 for key, lv in self._state.items():
                     lv.draw(self._canvas, drawer)
+
+                web.update_frame(self._canvas)
 
                 for cb in self._render_cbs:
                     cb(self._canvas)

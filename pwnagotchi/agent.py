@@ -8,6 +8,7 @@ import _thread
 import pwnagotchi
 import pwnagotchi.utils as utils
 import pwnagotchi.plugins as plugins
+from pwnagotchi.ui.web.server import Server
 from pwnagotchi.automata import Automata
 from pwnagotchi.log import LastSession
 from pwnagotchi.bettercap import Client
@@ -34,11 +35,14 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
         self._supported_channels = utils.iface_channels(config['main']['iface'])
         self._view = view
         self._view.set_agent(self)
+        self._web_ui = Server(self, self._config['ui']['display'])
+
         self._access_points = []
         self._last_pwnd = None
         self._history = {}
         self._handshakes = {}
         self.last_session = LastSession(self._config)
+        self.mode = 'auto'
 
         if not os.path.exists(config['bettercap']['handshakes']):
             os.makedirs(config['bettercap']['handshakes'])

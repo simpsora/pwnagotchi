@@ -6,6 +6,7 @@
     <a href="https://github.com/evilsocket/pwnagotchi/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/evilsocket/pwnagotchi"/></a>
     <a href="https://travis-ci.org/evilsocket/pwnagotchi"><img alt="Travis" src="https://img.shields.io/travis/evilsocket/pwnagotchi/master.svg?style=flat-square"></a>
     <a href="https://invite.pwnagotchi.ai/"><img alt="Slack" src="https://invite.pwnagotchi.ai/badge.svg"></a>
+    <a href="https://community.pwnagotchi.ai/"><img alt="Forum" src="https://img.shields.io/discourse/posts?server=https%3A%2F%2Fcommunity.pwnagotchi.ai%2F&style=flat-square"></a>
     <a href="https://twitter.com/intent/follow?screen_name=pwnagotchi"><img src="https://img.shields.io/twitter/follow/pwnagotchi?style=social&logo=twitter" alt="follow on Twitter"></a>
 </p>
 
@@ -30,10 +31,11 @@ https://www.pwnagotchi.ai
 
 &nbsp; | Official Links
 ---------|-------
-Slack | [pwnagotchi.slack.com](https://invite.pwnagotchi.ai/)
-Twitter | [@pwnagotchi](https://twitter.com/pwnagotchi)
-Subreddit | [r/pwnagotchi](https://www.reddit.com/r/pwnagotchi/)
 Website | [pwnagotchi.ai](https://pwnagotchi.ai/)
+Forum | [community.pwnagotchi.ai](https://community.pwnagotchi.ai/)
+Slack | [pwnagotchi.slack.com](https://invite.pwnagotchi.ai/)
+Subreddit | [r/pwnagotchi](https://www.reddit.com/r/pwnagotchi/)
+Twitter | [@pwnagotchi](https://twitter.com/pwnagotchi)
 
 ## License
 

@@ -2,6 +2,7 @@ import logging
 import json
 import os
 import requests
+import time
 import pwnagotchi.plugins as plugins
 from pwnagotchi.utils import StatusFile
 
@@ -10,7 +11,7 @@ MOZILLA_API_URL = 'https://location.services.mozilla.com/v1/geolocate?key={api}'
 
 class NetPos(plugins.Plugin):
     __author__ = 'zenzen san'
-    __version__ = '2.0.0'
+    __version__ = '2.0.1'
     __license__ = 'GPL3'
     __description__ = """Saves a json file with the access points with more signal
                          whenever a handshake is captured.
@@ -72,15 +73,15 @@ class NetPos(plugins.Plugin):
                     try:
                         geo_data = self._get_geo_data(np_file)  # returns json obj
                     except requests.exceptions.RequestException as req_e:
-                        logging.error("NET-POS: %s", req_e)
+                        logging.error("NET-POS: %s - RequestException: %s", np_file, req_e)
                         self.skip += np_file
                         continue
                     except json.JSONDecodeError as js_e:
-                        logging.error("NET-POS: %s", js_e)
+                        logging.error("NET-POS: %s - JSONDecodeError: %s", np_file, js_e)
                         self.skip += np_file
                         continue
                     except OSError as os_e:
-                        logging.error("NET-POS: %s", os_e)
+                        logging.error("NET-POS: %s - OSError: %s", np_file, os_e)
                         self.skip += np_file
                         continue
 
@@ -95,6 +96,7 @@ class NetPos(plugins.Plugin):
 
     def on_handshake(self, agent, filename, access_point, client_station):
         netpos = self._get_netpos(agent)
+        netpos["ts"] = int("%.0f" % time.time())
         netpos_filename = filename.replace('.pcap', '.net-pos.json')
         logging.info("NET-POS: Saving net-location to %s", netpos_filename)
 
@@ -129,6 +131,9 @@ class NetPos(plugins.Plugin):
             result = requests.post(geourl,
                                    json=data,
                                    timeout=timeout)
-            return result.json()
+            return_geo = result.json()
+            if data["ts"]:
+                return_geo["ts"] = data["ts"]
+            return return_geo
         except requests.exceptions.RequestException as req_e:
             raise req_e

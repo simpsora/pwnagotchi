@@ -4,7 +4,6 @@ import threading
 
 import pwnagotchi.plugins as plugins
 import pwnagotchi.ui.hw as hw
-import pwnagotchi.ui.web as web
 from pwnagotchi.ui.view import View
 
 
@@ -15,7 +14,6 @@ class Display(View):
 
         self._enabled = config['enabled']
         self._rotation = config['rotation']
-        self._webui = web.Server(config)
 
         self.init_display()
 
@@ -26,6 +24,9 @@ class Display(View):
             daemon=True
         )
         self._render_thread_instance.start()
+
+    def set_ready(self):
+        self._webui.start()
 
     def is_inky(self):
         return self._implementation.name == 'inky'
@@ -41,7 +42,7 @@ class Display(View):
 
     def is_waveshare27inch(self):
         return self._implementation.name == 'waveshare27inch'
-    
+
     def is_waveshare29inch(self):
         return self._implementation.name == 'waveshare29inch'
 
@@ -89,7 +90,6 @@ class Display(View):
             self._implementation.render(self._canvas_next)
 
     def _on_view_rendered(self, img):
-        web.update_frame(img)
         try:
             if self._config['ui']['display']['video']['on_frame'] != '':
                 os.system(self._config['ui']['display']['video']['on_frame'])
