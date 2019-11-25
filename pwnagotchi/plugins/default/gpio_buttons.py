@@ -32,7 +32,8 @@ class GPIOButtons(plugins.Plugin):
         GPIO.setmode(GPIO.BCM)
 
         for gpio, command in gpios.items():
+            gpio = int(gpio)
             self.ports[gpio] = command
             GPIO.setup(gpio, GPIO.IN, GPIO.PUD_UP)
-            GPIO.add_event_detect(gpio, GPIO.FALLING, callback=self.runCommand, bouncetime=250)
+            GPIO.add_event_detect(gpio, GPIO.FALLING, callback=self.runCommand, bouncetime=600)
             logging.info("Added command: %s to GPIO #%d", command, gpio)
