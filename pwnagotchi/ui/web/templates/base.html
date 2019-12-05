@@ -10,11 +10,16 @@
     </title>
 
     <link rel="stylesheet" href="/js/jquery.mobile/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    {% block styles %}
+    {% endblock %}
+
     <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/js/jquery.mobile/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="/js/jquery.timeago.js"></script>
     <script type="text/javascript" src="/js/jquery-qrcode-0.17.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    {% block scripts %}
+    {% endblock %}
 
     <script type="text/javascript">
         $.mobile.ajaxEnabled = false;
@@ -47,6 +52,7 @@
         ( '/inbox/new', 'new', 'mail', 'New' ),
         ( '/inbox/profile', 'profile', 'info', 'Profile' ),
         ( '/inbox/peers', 'peers', 'user', 'Peers' ),
+        ( '/plugins', 'plugins', 'grid', 'Plugins' ),
     ] %}
     {% set active_page = active_page|default('inbox') %}
 
@@ -54,7 +60,7 @@
         <div data-role="navbar" data-iconpos="left">
             <ul>
                 {% for href, id, icon, caption in navigation %}
-                    <li>
+                    <li class="navitem">
                        <a href="{{ href }}" id="{{ id }}" data-icon="{{ icon }}" class="{{ 'ui-btn-active' if active_page == id }}">{{ caption }}</a>
                     </li>
                 {% endfor %}
