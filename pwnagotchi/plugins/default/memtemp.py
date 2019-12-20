@@ -53,6 +53,9 @@ class MemTemp(plugins.Plugin):
         elif ui.is_inky():
             h_pos = (140, 68)
             v_pos = (165, 54)
+        elif ui.is_waveshare27inch():
+            h_pos = (192, 138)
+            v_pos = (216, 122)
         else:
             h_pos = (155, 76)
             v_pos = (180, 61)
@@ -67,6 +70,10 @@ class MemTemp(plugins.Plugin):
                                                    position=h_pos,
                                                    label_font=fonts.Small, text_font=fonts.Small))
 
+    def on_unload(self, ui):
+        with ui._lock:
+            ui.remove_element('memtemp')
+
     def on_ui_update(self, ui):
         if self.options['scale'] == "fahrenheit":
             temp = (pwnagotchi.temperature() * 9 / 5) + 32
@@ -75,7 +82,7 @@ class MemTemp(plugins.Plugin):
             temp = pwnagotchi.temperature() + 273.15
             symbol = "k"
         else:
-            # default to celsius 
+            # default to celsius
             temp = pwnagotchi.temperature()
             symbol = "c"
 
